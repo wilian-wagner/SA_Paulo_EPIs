@@ -1,0 +1,107 @@
+// Variáveis para facilitar a manutenção
+$background-color: #f0f0f0;
+$text-color: #333;
+$hover-color: #8AF0B3;
+$footer-bg-color: #222;
+$footer-text-color: #fff;
+
+// Reset básico
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: $background-color;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+// Header
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: white;
+    border-bottom: 1px solid #ddd;
+
+    .header-logo {
+        display: flex;
+        align-items: center;
+
+        .logo {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        h1 {
+            font-size: 18px;
+            color: $text-color;
+        }
+    }
+
+    .header-nav {
+        display: flex;
+        gap: 20px;
+
+        .nav-link {
+            text-decoration: none;
+            font-size: 16px;
+            color: $text-color;
+            transition: transform .2s ease;
+
+            &:hover {
+                color: $hover-color;
+                transform: scale(1.1);
+            }
+        }
+    }
+}
+
+// Main content
+.main-content {
+    flex-grow: 1; // Para garantir que o conteúdo ocupe o espaço restante
+    background-color: $background-color;
+
+    .intro, .features, .benefits {
+        margin-bottom: 30px;
+        padding-left: 20px;
+    }
+
+    h2 {
+        font-size: 24px;
+        color: $text-color;
+    }
+
+    h3 {
+        font-size: 20px;
+        color: $text-color;
+    }
+
+    p {
+        font-size: 16px;
+        color: $text-color;
+    }
+
+    ul {
+        list-style-type: none;
+        padding-left: 0;
+        
+        li {
+            font-size: 16px;
+            color: $text-color;
+        }
+    }
+}
+
+// Footer
+.footer {
+    background-color: $footer-bg-color;
+    color: $footer-text-color;
+    text-align: center;
+    padding: 20px;
+    font-size: 14px;
+}

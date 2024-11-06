@@ -1,9 +1,11 @@
 import express from 'express';
+import cors from 'cors'
 import epiRoutes from './routes/epiRoutes.js';
 import funcionarioRoutes from './routes/funcionarioRoutes.js';
 
 const app = express();
 app.use(express.json());
+app.use(cors())
 
 // Rotas
 app.use('/epis', epiRoutes);
