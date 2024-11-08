@@ -26,18 +26,20 @@ function Funcionario() {
         }
     }
 
-    const [exibirFuncionario, setExibirFuncionario] = useState(null)
-    
-    
+    const [listaFuncionarios, setListaFuncionarios] = useState([]);
+
     useEffect(() => {
         carregarFuncionario()
     }, [])
 
     const carregarFuncionario = async () => {
-        const response = await axios.get('')
-    }
-
-
+        try {
+            const response = await axios.get('http://localhost:3000/funcionarios');
+            setListaFuncionarios(response.data);
+        } catch (error) {
+            console.error("Erro ao carregar funcionários:", error);
+        }
+    };
 
     return (
         <div className='funcionario-page container'>
@@ -89,12 +91,22 @@ function Funcionario() {
                     </form>
                 </section>
 
-                <section>
 
-
+                <section className="lista-funcionarios">
+                    <h2>Funcionários Cadastrados</h2>
+                    <div className="funcionarios-cards">
+                        {listaFuncionarios.map((func, index) => (
+                            <div key={index} className="funcionario-card">
+                                <h3>{func.nome}</h3>
+                                <p>Cargo: {func.cargo}</p>
+                                <p>Setor: {func.setor}</p>
+                                <p>Email: {func.email}</p>
+                                <button className="btn-editar">Editar</button>
+                                <button className="btn-deletar">Deletar</button>
+                            </div>
+                        ))}
+                    </div>
                 </section>
-
-
 
             </main>
 

@@ -46,4 +46,4 @@ const deletarFuncionario = async (id) => {
 }
 
 
-export { listarFuncionarios, listarFuncionariosID, criarFuncionario, editarFuncionario, deletarFuncionario }
+export { listarFuncionarios, criarFuncionario, editarFuncionario, deletarFuncionario }
