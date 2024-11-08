@@ -1,0 +1,62 @@
+// Variáveis de cores
+$background-color: #f0f0f0;
+$text-color: #333;
+$button-color: #FF784B; // Cor para o botão "Cadastrar"
+$button-hover-color: #d9534f;
+
+// Estilo geral da página de Funcionário
+.intro {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-left: 20px;
+
+    h2 {
+        font-size: 20px;
+        color: $text-color;
+        margin-bottom: 15px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: baseline;
+        gap: 8px;
+
+        ::-webkit-input-placeholder{
+            color: #94A3B8;
+        }
+
+        input {
+            width: 500px;
+            padding: 8px;
+            border-top: 0px;
+            border-left: 0px;
+            border-width: 1px;
+            border-radius: 4px;
+            font-size: 14px;
+            color: $text-color;
+
+            &:focus {
+                border-color: $button-color;
+                outline: none;
+            }
+        }
+
+        .btn-cadastrar {
+            margin-top: 5px;
+            padding: 8px 50px;
+            font-size: 14px;
+            color: #fff;
+            background-color: $button-color;
+            border: none;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+
+            &:hover {
+                background-color: $button-hover-color;
+            }
+        }
+    }
+}

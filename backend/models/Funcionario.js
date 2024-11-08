@@ -5,6 +5,7 @@ const listarFuncionarios = async () => {
   return res.rows;
 };
 
+
 const criarFuncionario = async (nome, cargo, setor, email) => {
   const res = await conexao.query(
     'INSERT INTO funcionarios (nome, cargo, setor, email) VALUES ($1, $2, $3, $4) RETURNING *',
@@ -45,4 +46,4 @@ const deletarFuncionario = async (id) => {
 }
 
 
-export { listarFuncionarios, criarFuncionario, editarFuncionario, deletarFuncionario }
+export { listarFuncionarios, listarFuncionariosID, criarFuncionario, editarFuncionario, deletarFuncionario }

@@ -17,8 +17,8 @@ function Home() {
                 </nav>
             </header>
 
-            <main className="main-content">
-                <section className="intro">
+            <main className="home-main-content">
+                <section className="home-intro">
                     <h2>Bem-vindo ao Master EPIs Manager!</h2>
                     <p>
                         O <strong>Master EPIs Manager</strong> é um software web projetado para melhorar a gestão de Equipamentos de Proteção Individual (EPIs),
@@ -27,8 +27,8 @@ function Home() {
                     </p>
                 </section>
 
-                <section className="features">
-                    <h3>O que o sistema faz:</h3>
+                <section className="home-features">
+                    <h3>O que o sistema faz</h3>
                     <ul>
                         <li>Gestão de EPIs</li>
                         <li>Gestão de Funcionários</li>
@@ -36,14 +36,15 @@ function Home() {
                     </ul>
                 </section>
 
-                <section className="benefits">
-                    <h3>Benefícios do sistema:</h3>
+                <section className="home-benefits">
+                    <h3>Benefícios do sistema</h3>
                     <p>
                         Este sistema ajudará a melhorar o processo organizacional e de gestão, facilitando o acesso e a visualização de dados
                         relacionados ao uso e devolução de EPIs. A principal meta é minimizar perdas materiais e pessoais, ao controlar o uso adequado
                         dos equipamentos de segurança.
                     </p>
                 </section>
+                
             </main>
 
             <footer className="footer">
