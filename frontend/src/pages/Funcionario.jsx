@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react'
-import axios from 'axios'
-import { Link, useNavigate } from 'react-router-dom'
-import '../SASS/funcionarioStyle.scss'
-
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
+import '../SASS/funcionarioStyle.scss';
 
 function Funcionario() {
     const [funcionario, setFuncionario] = useState({
@@ -10,30 +9,35 @@ function Funcionario() {
         cargo: '',
         setor: '',
         email: ''
-    })
-
+    });
     const [listaFuncionarios, setListaFuncionarios] = useState([]);
-    
+
+    // Estados para os filtros
+    const [filtroNome, setFiltroNome] = useState('');
+    const [filtroCargo, setFiltroCargo] = useState('');
+    const [filtroSetor, setFiltroSetor] = useState('');
+
     const navigate = useNavigate();
 
     useEffect(() => {
-        carregarFuncionario()
-    }, [])
+        carregarFuncionario();
+    }, []);
 
     const handleChange = (e) => {
-        setFuncionario({ ...funcionario, [e.target.name]: e.target.value })
-    }
+        setFuncionario({ ...funcionario, [e.target.name]: e.target.value });
+    };
 
     const cadastrar = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:3000/funcionarios', funcionario)
-            console.log(response.data)
-            setFuncionario({ nome: '', cargo: '', setor: '', email: '' })
+            const response = await axios.post('http://localhost:3000/funcionarios', funcionario);
+            console.log(response.data);
+            setFuncionario({ nome: '', cargo: '', setor: '', email: '' });
+            carregarFuncionario(); // Recarregar lista após cadastrar
         } catch (error) {
-            console.error("Erro ao cadastrar funcionário:", error)
+            console.error("Erro ao cadastrar funcionário:", error);
         }
-    }
+    };
 
     const carregarFuncionario = async () => {
         try {
@@ -53,7 +57,13 @@ function Funcionario() {
             console.error("Erro ao deletar funcionário:", error);
         }
     };
-    
+
+    // Função para aplicar o filtro
+    const funcionariosFiltrados = listaFuncionarios.filter(func =>
+        func.nome.toLowerCase().includes(filtroNome.toLowerCase()) &&
+        func.cargo.toLowerCase().includes(filtroCargo.toLowerCase()) &&
+        func.setor.toLowerCase().includes(filtroSetor.toLowerCase())
+    );
 
     return (
         <div className='funcionario-page container'>
@@ -64,7 +74,7 @@ function Funcionario() {
                 </div>
                 <nav className="header-nav">
                     <Link to="/" className="nav-link">Home</Link>
-                    <Link to="/EPI" className="nav-link">Equipamento</Link>
+                    <Link to="/Epi" className="nav-link">Equipamento</Link>
                     <Link to="/Historico" className="nav-link">Histórico</Link>
                 </nav>
             </header>
@@ -73,43 +83,38 @@ function Funcionario() {
                 <section className="intro">
                     <h2>Cadastro de Funcionário</h2>
                     <form onSubmit={cadastrar}>
-                        <input
-                            type="text"
-                            name="nome"
-                            onChange={handleChange}
-                            value={funcionario.nome}
-                            placeholder="Nome"
-                        />
-                        <input
-                            type="text"
-                            name="cargo"
-                            onChange={handleChange}
-                            value={funcionario.cargo}
-                            placeholder="Cargo"
-                        />
-                        <input
-                            type="text"
-                            name="setor"
-                            onChange={handleChange}
-                            value={funcionario.setor}
-                            placeholder="Setor"
-                        />
-                        <input
-                            type="email"
-                            name="email"
-                            onChange={handleChange}
-                            value={funcionario.email}
-                            placeholder="Email"
-                        />
+                        <input type="text" name="nome" onChange={handleChange} value={funcionario.nome} placeholder="Nome" />
+                        <input type="text" name="cargo" onChange={handleChange} value={funcionario.cargo} placeholder="Cargo" />
+                        <input type="text" name="setor" onChange={handleChange} value={funcionario.setor} placeholder="Setor" />
+                        <input type="email" name="email" onChange={handleChange} value={funcionario.email} placeholder="Email" />
                         <button type="submit" className="btn-cadastrar">Cadastrar</button>
                     </form>
                 </section>
-
-
+                
                 <section className="lista-funcionarios">
                     <h2>Funcionários Cadastrados</h2>
+                    <div className="filtro-funcionarios">
+                        <input
+                            type="text"
+                            placeholder="Buscar por nome"
+                            value={filtroNome}
+                            onChange={(e) => setFiltroNome(e.target.value)}
+                        />
+                        <input
+                            type="text"
+                            placeholder="Filtrar por cargo"
+                            value={filtroCargo}
+                            onChange={(e) => setFiltroCargo(e.target.value)}
+                        />
+                        <input
+                            type="text"
+                            placeholder="Filtrar por setor"
+                            value={filtroSetor}
+                            onChange={(e) => setFiltroSetor(e.target.value)}
+                        />
+                    </div>
                     <div className="funcionarios-cards">
-                        {listaFuncionarios.map((func, index) => (
+                        {funcionariosFiltrados.map((func, index) => (
                             <div key={index} className="funcionario-card">
                                 <h3>{func.nome}</h3>
                                 <p>Cargo: {func.cargo}</p>
@@ -117,19 +122,19 @@ function Funcionario() {
                                 <p>Email: {func.email}</p>
                                 <button className="btn-editar"
                                     onClick={() => navigate(`/funcionarios/editar/${func.id}`)}>
-                                    Editar</button>
+                                    Editar
+                                </button>
                                 <button className="btn-deletar"
                                     onClick={() => deletarFuncionario(func.id)}>
-                                    Deletar</button>
+                                    Deletar
+                                </button>
                             </div>
                         ))}
                     </div>
                 </section>
-
             </main>
-
         </div>
-    )
+    );
 }
 
-export default Funcionario
+export default Funcionario;

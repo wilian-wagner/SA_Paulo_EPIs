@@ -12,7 +12,7 @@ function Home() {
                 </div>
                 <nav className="header-nav">
                     <Link to="/Funcionarios" className="nav-link">Funcionários</Link>
-                    <Link to="/EPI" className="nav-link">Equipamento</Link>
+                    <Link to="/Epi" className="nav-link">Equipamento</Link>
                     <Link to="/Historico" className="nav-link">Histórico</Link>
                 </nav>
             </header>

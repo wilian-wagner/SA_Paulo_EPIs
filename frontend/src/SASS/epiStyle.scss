@@ -1,11 +1,12 @@
 // Variáveis de cores
 $background-color: #f0f0f0;
 $text-color: #333;
-$button-color: #FF784B; // Cor para o botão "Cadastrar"
+$button-color: #FF784B;
 $button-hover-color: #d9534f;
+$btn-retirar-color: #007bff;
+$btn-devolver-color: #FF5722;
 
-// Estilo geral da página de Funcionário
-.intro {
+.intro-epi {
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -61,8 +62,7 @@ $button-hover-color: #d9534f;
     }
 }
 
-// Estilo para a seção de lista de funcionários
-.lista-funcionarios {
+.lista-epis {
     padding: 20px;
 
     h2 {
@@ -70,13 +70,13 @@ $button-hover-color: #d9534f;
         color: $text-color;
     }
 
-    .funcionarios-cards {
+    .epis-cards {
         display: flex;
         flex-wrap: wrap;
         gap: 20px;
     }
 
-    .funcionario-card {
+    .epi-card {
         background-color: #fff;
         border: 1px solid #ddd;
         border-radius: 8px;
@@ -103,7 +103,7 @@ $button-hover-color: #d9534f;
             color: #fff;
             padding: 5px 10px;
             border: none;
-            border-radius: 4px;
+            border-radius: 10px;
             cursor: pointer;
             margin-right: 5px;
             font-size: 12px;
@@ -119,107 +119,57 @@ $button-hover-color: #d9534f;
             color: #fff;
             padding: 5px 10px;
             border: none;
-            border-radius: 4px;
+            border-radius: 10px;
             cursor: pointer;
             font-size: 12px;
             transition: background-color 0.3s;
 
             &:hover {
-                background-color: #c0392b; // Ajuste manual para um tom mais escuro de $button-hover-color
+                background-color: #c0392b;
             }
         }
-    }
-}
 
-// Estilo geral da página de edição de Funcionário
-.editar-funcionario-page {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
+        .btn-retirar,
+        .btn-devolver {
+            color: #fff;
+            padding: 5px 30px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background-color 0.3s;
+            margin-top: 5px;
 
-    .header {
-        .header-logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 0px;
-
-            .btn-voltar {
-                background-color: transparent;
-                border: none;
-                font-size: 18px;
-                color: $button-color;
-                cursor: pointer;
-                transition: color 0.3s;
+            &.btn-retirar {
+                background-color: $btn-retirar-color;
+                color: #fff;
 
                 &:hover {
-                    color: $button-hover-color;
+                    background-color: #0258b5;
                 }
             }
 
-            h1 {
-                font-size: 24px;
-                color: $text-color;
-            }
-        }
-    }
+            &.btn-devolver {
+                background-color: $btn-devolver-color;
+                color: #fff;
 
-    h2 {
-        font-size: 20px;
-        color: $text-color;
-        margin-top: 20px;
-        margin-left: 20px;
-    }
-
-    form {
-        display: flex;
-        flex-direction: column;
-        align-items: start;
-        margin-left: 20px;
-        gap: 8px;
-
-        input {
-            width: 500px;
-            padding: 8px;
-            border-top: 0px;
-            border-left: 0px;
-            border-width: 1px;
-            border-radius: 4px;
-            font-size: 14px;
-            color: $text-color;
-
-            &:focus {
-                border-color: $button-color;
-                outline: none;
-            }
-        }
-
-        button[type="submit"] {
-            margin-top: 5px;
-            padding: 8px 50px;
-            font-size: 14px;
-            color: #fff;
-            background-color: $button-color;
-            border: none;
-            border-radius: 60px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-
-            &:hover {
-                background-color: $button-hover-color;
+                &:hover {
+                    background-color: #d3471d;
+                }
             }
         }
     }
 }
 
-.filtro-funcionarios {
+// Estilo para o filtro de EPIs
+.filtro-epis {
     margin-bottom: 10px;
 
     ::-webkit-input-placeholder {
         color: #94A3B8;
     }
 
-    input[type="text"] {
+    input {
         width: calc(20% - 10px);
         padding: 5px;
         margin-right: 10px;
