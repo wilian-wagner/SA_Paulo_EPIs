@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import '../SASS/funcionarioStyle.scss'
+
 
 function Funcionario() {
     const [funcionario, setFuncionario] = useState({
@@ -10,6 +11,14 @@ function Funcionario() {
         setor: '',
         email: ''
     })
+
+    const [listaFuncionarios, setListaFuncionarios] = useState([]);
+    
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        carregarFuncionario()
+    }, [])
 
     const handleChange = (e) => {
         setFuncionario({ ...funcionario, [e.target.name]: e.target.value })
@@ -26,12 +35,6 @@ function Funcionario() {
         }
     }
 
-    const [listaFuncionarios, setListaFuncionarios] = useState([]);
-
-    useEffect(() => {
-        carregarFuncionario()
-    }, [])
-
     const carregarFuncionario = async () => {
         try {
             const response = await axios.get('http://localhost:3000/funcionarios');
@@ -40,6 +43,17 @@ function Funcionario() {
             console.error("Erro ao carregar funcionários:", error);
         }
     };
+
+    const deletarFuncionario = async (id) => {
+        try {
+            await axios.delete(`http://localhost:3000/funcionarios/${id}`);
+            setListaFuncionarios(listaFuncionarios.filter(func => func.id !== id));
+            console.log("Funcionário deletado com sucesso");
+        } catch (error) {
+            console.error("Erro ao deletar funcionário:", error);
+        }
+    };
+    
 
     return (
         <div className='funcionario-page container'>
@@ -101,8 +115,12 @@ function Funcionario() {
                                 <p>Cargo: {func.cargo}</p>
                                 <p>Setor: {func.setor}</p>
                                 <p>Email: {func.email}</p>
-                                <button className="btn-editar">Editar</button>
-                                <button className="btn-deletar">Deletar</button>
+                                <button className="btn-editar"
+                                    onClick={() => navigate(`/funcionarios/editar/${func.id}`)}>
+                                    Editar</button>
+                                <button className="btn-deletar"
+                                    onClick={() => deletarFuncionario(func.id)}>
+                                    Deletar</button>
                             </div>
                         ))}
                     </div>

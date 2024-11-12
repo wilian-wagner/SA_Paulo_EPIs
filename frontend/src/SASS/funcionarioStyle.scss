@@ -23,7 +23,7 @@ $button-hover-color: #d9534f;
         align-items: baseline;
         gap: 8px;
 
-        ::-webkit-input-placeholder{
+        ::-webkit-input-placeholder {
             color: #94A3B8;
         }
 
@@ -126,6 +126,88 @@ $button-hover-color: #d9534f;
 
             &:hover {
                 background-color: #c0392b; // Ajuste manual para um tom mais escuro de $button-hover-color
+            }
+        }
+    }
+}
+
+// Estilo geral da página de edição de Funcionário
+.editar-funcionario-page {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-left: 20px;
+
+    .header {
+        
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            .btn-voltar {
+                background-color: transparent;
+                border: none;
+                font-size: 18px;
+                color: $button-color;
+                cursor: pointer;
+                transition: color 0.3s;
+
+                &:hover {
+                    color: $button-hover-color;
+                }
+            }
+
+            h1 {
+                font-size: 24px;
+                color: $text-color;
+            }
+        }
+    }
+
+    h2 {
+        font-size: 20px;
+        color: $text-color;
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        margin-left: 20px;
+        gap: 8px;
+
+        input {
+            width: 500px;
+            padding: 8px;
+            border-top: 0px;
+            border-left: 0px;
+            border-width: 1px;
+            border-radius: 4px;
+            font-size: 14px;
+            color: $text-color;
+
+            &:focus {
+                border-color: $button-color;
+                outline: none;
+            }
+        }
+
+        button[type="submit"] {
+            margin-top: 5px;
+            padding: 8px 50px;
+            font-size: 14px;
+            color: #fff;
+            background-color: $button-color;
+            border: none;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+
+            &:hover {
+                background-color: $button-hover-color;
             }
         }
     }
