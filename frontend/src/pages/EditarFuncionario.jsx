@@ -1,5 +1,5 @@
 // EditarFuncionario.js
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../SASS/funcionarioStyle.scss'
@@ -14,29 +14,16 @@ function EditarFuncionario() {
     email: ''
   });
 
-  useEffect(() => {
-    const carregarFuncionario = async () => {
-      try {
-        const response = await axios.get(`http://localhost:3000/funcionarios/${id}`);
-        setFuncionario(response.data);
-      } catch (error) {
-        console.error("Erro ao carregar funcionário:", error);
-      }
-    };
-    carregarFuncionario();
-  }, [id]);
-
   const handleChange = (e) => {
     setFuncionario({ ...funcionario, [e.target.name]: e.target.value });
   };
 
   const atualizarFuncionario = async (e) => {
     e.preventDefault();
-
+    
     const dadosAtualizados = Object.fromEntries(
-      Object.entries(funcionario).filter(([key, value]) => value !== '')
+      Object.entries(funcionario).filter(([, value]) => value !== '')
     );
-
     try {
       await axios.put(`http://localhost:3000/funcionarios/${id}`, dadosAtualizados);
       navigate('/funcionarios');
