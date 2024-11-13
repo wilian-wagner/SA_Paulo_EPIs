@@ -11,8 +11,8 @@ function Funcionario() {
         email: ''
     });
     const [listaFuncionarios, setListaFuncionarios] = useState([]);
+    const [erro, setErro] = useState(''); 
 
-    // Estados para os filtros
     const [filtroNome, setFiltroNome] = useState('');
     const [filtroCargo, setFiltroCargo] = useState('');
     const [filtroSetor, setFiltroSetor] = useState('');
@@ -29,11 +29,20 @@ function Funcionario() {
 
     const cadastrar = async (e) => {
         e.preventDefault();
+        const nomeExistente = listaFuncionarios.some(funcionarioExistente =>
+            funcionarioExistente.nome.toLowerCase() === funcionario.nome.toLowerCase()
+        );
+
+        if (nomeExistente) {
+            setErro('Nome do Funcionário já cadastrado.');
+            return alert('Funcionário já cadastrado!');
+        }
+        setErro('');
         try {
             const response = await axios.post('http://localhost:3000/funcionarios', funcionario);
             console.log(response.data);
             setFuncionario({ nome: '', cargo: '', setor: '', email: '' });
-            carregarFuncionario(); // Recarregar lista após cadastrar
+            carregarFuncionario(); 
         } catch (error) {
             console.error("Erro ao cadastrar funcionário:", error);
         }
@@ -58,7 +67,6 @@ function Funcionario() {
         }
     };
 
-    // Função para aplicar o filtro
     const funcionariosFiltrados = listaFuncionarios.filter(func =>
         func.nome.toLowerCase().includes(filtroNome.toLowerCase()) &&
         func.cargo.toLowerCase().includes(filtroCargo.toLowerCase()) &&

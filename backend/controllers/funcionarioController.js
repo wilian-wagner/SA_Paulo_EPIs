@@ -12,9 +12,7 @@ const getFuncionarios = async (req, res) => {
 const postFuncionario = async (req, res) => {
   try {
     const { nome, cargo, setor, email } = req.body;
-    // Criando o EPI com o status calculado
     const novoFuncionario = await criarFuncionario(nome, cargo, setor, email);
-
     res.json(novoFuncionario);
   } catch (error) {
     res.status(500).json({ error: 'Erro ao criar Funcionario', error });

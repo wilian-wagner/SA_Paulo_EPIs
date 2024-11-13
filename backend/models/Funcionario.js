@@ -5,7 +5,6 @@ const listarFuncionarios = async () => {
   return res.rows;
 };
 
-
 const criarFuncionario = async (nome, cargo, setor, email) => {
   const res = await conexao.query(
     'INSERT INTO funcionarios (nome, cargo, setor, email) VALUES ($1, $2, $3, $4) RETURNING *',

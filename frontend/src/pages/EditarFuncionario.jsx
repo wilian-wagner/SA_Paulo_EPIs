@@ -1,5 +1,4 @@
-// EditarFuncionario.js
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../SASS/funcionarioStyle.scss'
@@ -7,6 +6,8 @@ import '../SASS/funcionarioStyle.scss'
 function EditarFuncionario() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [listaFuncionarios, setListaFuncionarios] = useState([]);
+  const [erro, setErro] = useState('')
   const [funcionario, setFuncionario] = useState({
     nome: '',
     cargo: '',
@@ -14,13 +15,26 @@ function EditarFuncionario() {
     email: ''
   });
 
+  useEffect(() => {
+    carregarFuncionario();
+}, []);
+
   const handleChange = (e) => {
     setFuncionario({ ...funcionario, [e.target.name]: e.target.value });
   };
 
   const atualizarFuncionario = async (e) => {
     e.preventDefault();
-    
+
+    const nomeExistente = listaFuncionarios.some(funcionarioExistente =>
+      funcionarioExistente.nome.toLowerCase() === funcionario.nome.toLowerCase()
+    );
+    if (nomeExistente) {
+      setErro('Nome do funcionário já cadastrado!');
+      return alert('Funcionário já cadastrado!');
+    }
+    setErro('');
+
     const dadosAtualizados = Object.fromEntries(
       Object.entries(funcionario).filter(([, value]) => value !== '')
     );
@@ -32,6 +46,14 @@ function EditarFuncionario() {
     }
   };
 
+  const carregarFuncionario = async () => {
+    try {
+      const response = await axios.get('http://localhost:3000/funcionarios');
+      setListaFuncionarios(response.data);
+    } catch (error) {
+      console.error("Erro ao carregar funcionários:", error);
+    }
+  };
 
   return (
     <div className="editar-funcionario-page">

@@ -1,10 +1,8 @@
-// Variáveis de cores
 $background-color: #f0f0f0;
 $text-color: #333;
-$button-color: #FF784B; // Cor para o botão "Cadastrar"
+$button-color: #FF784B; 
 $button-hover-color: #d9534f;
 
-// Estilo geral da página de Funcionário
 .intro {
     display: flex;
     flex-direction: column;
@@ -83,6 +81,7 @@ $button-hover-color: #d9534f;
         padding: 15px;
         width: 250px;
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        word-break: break-word;
 
         h3 {
             font-size: 16px;
@@ -125,13 +124,12 @@ $button-hover-color: #d9534f;
             transition: background-color 0.3s;
 
             &:hover {
-                background-color: #c0392b; // Ajuste manual para um tom mais escuro de $button-hover-color
+                background-color: #c0392b;
             }
         }
     }
 }
-
-// Estilo geral da página de edição de Funcionário
+//Estilo para pagina de edição de funcionario
 .editar-funcionario-page {
     display: flex;
     flex-direction: column;
@@ -214,6 +212,7 @@ $button-hover-color: #d9534f;
 
 .filtro-funcionarios {
     margin-bottom: 10px;
+    
 
     ::-webkit-input-placeholder {
         color: #94A3B8;
@@ -222,7 +221,7 @@ $button-hover-color: #d9534f;
     input[type="text"] {
         width: calc(20% - 10px);
         padding: 5px;
-        margin-right: 10px;
+        margin-right: 36px;
         border-top: 0px;
         border-left: 0px;
         border-width: 1px;

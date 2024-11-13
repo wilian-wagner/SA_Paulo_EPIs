@@ -10,8 +10,8 @@ function EPI() {
         status: ''
     });
     const [listaEPIs, setListaEPIs] = useState([]);
+    const [erro, setErro] = useState(''); 
 
-    // Estados para os filtros
     const [filtroNome, setFiltroNome] = useState('');
     const [filtroStatus, setFiltroStatus] = useState('');
 
@@ -25,24 +25,34 @@ function EPI() {
         setEpi({ ...epi, [e.target.name]: e.target.value });
     };
 
-    const cadastrarEPI = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await axios.post('http://localhost:3000/epis', epi);
-            console.log(response.data);
-            setEpi({ nome: '', descricao: '', quantidade: 0, status: '' });
-            carregarEPIs(); // Recarregar lista após cadastrar
-        } catch (error) {
-            console.error("Erro ao cadastrar EPI:", error);
-        }
-    };
-
     const carregarEPIs = async () => {
         try {
             const response = await axios.get('http://localhost:3000/epis');
             setListaEPIs(response.data);
         } catch (error) {
             console.error("Erro ao carregar EPIs:", error);
+        }
+    };
+
+    const cadastrarEPI = async (e) => {
+        e.preventDefault();
+        const nomeExistente = listaEPIs.some(epiExistente =>
+            epiExistente.nome.toLowerCase() === epi.nome.toLowerCase()
+        );
+
+        if (nomeExistente) {
+            setErro('Nome do EPI já cadastrado.');
+            return alert('EPI já cadastrado!');
+        }
+        setErro('');
+
+        try {
+            const response = await axios.post('http://localhost:3000/epis', epi);
+            console.log(response.data);
+            setEpi({ nome: '', quantidade: 0, status: '' });
+            carregarEPIs();
+        } catch (error) {
+            console.error("Erro ao cadastrar EPI:", error);
         }
     };
 
@@ -56,10 +66,9 @@ function EPI() {
         }
     };
 
-    // Função para aplicar o filtro
     const episFiltrados = listaEPIs.filter(epi =>
         epi.nome.toLowerCase().includes(filtroNome.toLowerCase()) &&
-        epi.status.toLowerCase().includes(filtroStatus.toLowerCase())
+        epi.status.toLowerCase().startsWith(filtroStatus.toLowerCase())
     );
 
     return (
@@ -80,8 +89,20 @@ function EPI() {
                 <section className="intro-epi">
                     <h2>Cadastro de EPIs</h2>
                     <form onSubmit={cadastrarEPI}>
-                        <input type="text" name="nome" onChange={handleChange} value={epi.nome} placeholder="Nome do equipamento" />
-                        <input type="number" name="quantidade" onChange={handleChange} value={epi.quantidade} placeholder="quantidade" />
+                        <input
+                            type="text"
+                            name="nome"
+                            onChange={handleChange}
+                            value={epi.nome}
+                            placeholder="Nome do equipamento"
+                        />
+                        <input
+                            type="number"
+                            name="quantidade"
+                            onChange={handleChange}
+                            value={epi.quantidade}
+                            placeholder="Quantidade"
+                        />
                         <button type="submit" className="btn-cadastrar">Cadastrar</button>
                     </form>
                 </section>
@@ -109,7 +130,7 @@ function EPI() {
                                 <p>Estoque: {epi.quantidade}</p>
                                 <p>Status: {epi.status}</p>
                                 <button className="btn-editar"
-                                    onClick={() => navigate(`/epis/editar/${epi.id}`)}>
+                                    onClick={() => navigate(`/Epi/editar/${epi.id}`)}>
                                     Editar
                                 </button>
                                 <button className="btn-deletar"
