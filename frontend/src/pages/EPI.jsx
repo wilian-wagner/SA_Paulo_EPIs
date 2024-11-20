@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import '../SASS/epiStyle.scss';
 
-function EPI() {
+function Epi() {
     const [epi, setEpi] = useState({
         nome: '',
         quantidade: 0,
@@ -150,4 +150,4 @@ function EPI() {
     );
 }
 
-export default EPI;
+export default Epi;

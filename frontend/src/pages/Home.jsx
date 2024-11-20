@@ -44,7 +44,7 @@ function Home() {
                         dos equipamentos de segurança.
                     </p>
                 </section>
-                
+
             </main>
 
             <footer className="footer">

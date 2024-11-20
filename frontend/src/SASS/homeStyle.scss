@@ -1,6 +1,8 @@
 // Variáveis para facilitar a manutenção
 $background-color: #f0f0f0;
 $text-color: #333;
+$text: white;
+$title-text-color: #8AF0B3;
 $hover-color: #8AF0B3;
 $footer-bg-color: #222;
 $footer-text-color: #fff;
@@ -33,7 +35,7 @@ body {
         display: flex;
         align-items: center;
         padding-left: 10px;
-       
+
 
         .logo {
             width: 30px;
@@ -68,38 +70,66 @@ body {
 
 // Main content
 .home-main-content {
-    flex-grow: 1; // Para garantir que o conteúdo ocupe o espaço restante
+    flex-grow: 1;
     background-color: $background-color;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
 
     .home-intro,
     .home-features,
     .home-benefits {
-        margin-bottom: 30px;
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        justify-content: center;
         padding-left: 20px;
+        background: rgb(2,0,36);
+        background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(8,126,39,1) 90%, rgb(12, 218, 91) 130%);
+        backdrop-filter: blur(8.9px);
+        -webkit-backdrop-filter: blur(8.9px);
+        transition: border-color 1s;
+
+        &:hover {
+            border: 0.5px outset white;
+            border-radius: 5px;
+            outline: none;
+        }
     }
 
     h2 {
+        margin: 0px;
+        padding-bottom: 15px;
+        padding-top: 40px;
         font-size: 24px;
-        color: $text-color;
+        color: $title-text-color;
     }
 
     h3 {
+        margin: 0px;
+        padding-bottom: 15px;
+        padding-top: 40px;
         font-size: 20px;
-        color: $text-color;
+        color: $title-text-color;
     }
 
     p {
         font-size: 16px;
-        color: $text-color;
+        padding-bottom: 40px;
+        color: $text;
+        margin: 0px;
     }
 
     ul {
+        margin: 0px;
         list-style-type: none;
         padding-left: 0;
+        padding-bottom: 40px;
 
         li {
             font-size: 16px;
-            color: $text-color;
+            color: $text;
         }
     }
 }

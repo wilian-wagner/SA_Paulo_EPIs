@@ -162,15 +162,16 @@ $btn-devolver-color: #FF5722;
 
 .filtro-epis {
     margin-bottom: 10px;
+    
 
     ::-webkit-input-placeholder {
         color: #94A3B8;
     }
 
     input {
-        width: calc(20% - 10px);
+        width: 271px;
         padding: 5px;
-        margin-right: 10px;
+        margin-right: 21px;
         border-top: 0px;
         border-left: 0px;
         border-width: 1px;
