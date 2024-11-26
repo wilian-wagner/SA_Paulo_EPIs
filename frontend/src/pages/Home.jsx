@@ -11,6 +11,7 @@ function Home() {
                     <h1>Master EPIs Manager</h1>
                 </div>
                 <nav className="header-nav">
+                    <Link to="/" className="nav-link">Home</Link>
                     <Link to="/Funcionarios" className="nav-link">Funcionários</Link>
                     <Link to="/Epi" className="nav-link">Equipamento</Link>
                     <Link to="/Historico" className="nav-link">Histórico</Link>

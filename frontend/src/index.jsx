@@ -5,14 +5,15 @@ import Funcionarios from './pages/Funcionario.jsx'
 import EditarFuncionario from './pages/EditarFuncionario.jsx'
 import Epi from './pages/EPI.jsx'
 import EditarEPIs from './pages/EditarEPIs.jsx'
+import Historico from './pages/Historico.jsx'
 
 const paginas = createBrowserRouter([
   { path: '/', element: <Home /> },
   { path: '/funcionarios', element: <Funcionarios /> },
   { path: '/funcionarios/editar/:id', element: <EditarFuncionario/>},
   { path: '/Epi', element: <Epi /> },
-  { path: '/Epi/editar/:id', element: <EditarEPIs /> }
-
+  { path: '/Epi/editar/:id', element: <EditarEPIs /> },
+  { path: '/Historico', element: <Historico /> }
 ])
 
 createRoot(document.getElementById('root')).render(

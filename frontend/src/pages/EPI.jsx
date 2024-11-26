@@ -10,7 +10,7 @@ function Epi() {
         status: ''
     });
     const [listaEPIs, setListaEPIs] = useState([]);
-    const [erro, setErro] = useState(''); 
+    const [erro, setErro] = useState('');
 
     const [filtroNome, setFiltroNome] = useState('');
     const [filtroStatus, setFiltroStatus] = useState('');
@@ -66,6 +66,38 @@ function Epi() {
         }
     };
 
+    // Função para registrar a movimentação
+    const registrarMovimentacao = async (tipo_movimentacao, epi_id) => {
+        try {
+            const movimentacao = {
+                funcionario_id: 1, // Substitua pelo ID real do funcionário se necessário
+                epi_id,
+                tipo_movimentacao,
+                data: new Date().toISOString() // Data atual no formato ISO
+            };
+            await axios.post('http://localhost:3000/movimentacoes', movimentacao);
+            console.log("Movimentação registrada com sucesso:", movimentacao);
+        } catch (error) {
+            console.error("Erro ao registrar movimentação:", error);
+        }
+    };
+
+    // Função para retirar o EPI
+    const retirarEPI = async (epi_id, quantidadeAtual) => {
+        if (quantidadeAtual > 0) {
+            await registrarMovimentacao('retirada', epi_id);
+            carregarEPIs();
+        } else {
+            alert("Estoque insuficiente para retirada.");
+        }
+    };
+
+    // Função para devolver o EPI
+    const devolverEPI = async (epi_id) => {
+        await registrarMovimentacao('devolução', epi_id);
+        carregarEPIs();
+    };
+
     const episFiltrados = listaEPIs.filter(epi =>
         epi.nome.toLowerCase().includes(filtroNome.toLowerCase()) &&
         epi.status.toLowerCase().startsWith(filtroStatus.toLowerCase())
@@ -81,6 +113,7 @@ function Epi() {
                 <nav className="header-nav">
                     <Link to="/" className="nav-link">Home</Link>
                     <Link to="/Funcionarios" className="nav-link">Funcionários</Link>
+                    <Link to="/Epi" className="nav-link">Equipamento</Link>
                     <Link to="/Historico" className="nav-link">Histórico</Link>
                 </nav>
             </header>
@@ -138,8 +171,18 @@ function Epi() {
                                     Deletar
                                 </button>
                                 <div>
-                                    <button className="btn-retirar">Retirar</button>
-                                    <button className="btn-devolver">Devolver</button>
+                                    <button
+                                        className="btn-retirar"
+                                        onClick={() => retirarEPI(epi.id, epi.quantidade)}
+                                    >
+                                        Retirar
+                                    </button>
+                                    <button
+                                        className="btn-devolver"
+                                        onClick={() => devolverEPI(epi.id)}
+                                    >
+                                        Devolver
+                                    </button>
                                 </div>
                             </div>
                         ))}

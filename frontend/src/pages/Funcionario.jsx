@@ -82,6 +82,7 @@ function Funcionario() {
                 </div>
                 <nav className="header-nav">
                     <Link to="/" className="nav-link">Home</Link>
+                    <Link to="/Funcionarios" className="nav-link">Funcionários</Link>
                     <Link to="/Epi" className="nav-link">Equipamento</Link>
                     <Link to="/Historico" className="nav-link">Histórico</Link>
                 </nav>
@@ -91,10 +92,10 @@ function Funcionario() {
                 <section className="intro">
                     <h2>Cadastro de Funcionário</h2>
                     <form onSubmit={cadastrar}>
-                        <input type="text" name="nome" onChange={handleChange} value={funcionario.nome} placeholder="Nome" />
-                        <input type="text" name="cargo" onChange={handleChange} value={funcionario.cargo} placeholder="Cargo" />
-                        <input type="text" name="setor" onChange={handleChange} value={funcionario.setor} placeholder="Setor" />
-                        <input type="email" name="email" onChange={handleChange} value={funcionario.email} placeholder="Email" />
+                        <input id='nome' type="text" name="nome" onChange={handleChange} value={funcionario.nome} placeholder="Nome" />
+                        <input id='cargo' type="text" name="cargo" onChange={handleChange} value={funcionario.cargo} placeholder="Cargo" />
+                        <input id='setor' type="text" name="setor" onChange={handleChange} value={funcionario.setor} placeholder="Setor" />
+                        <input id='email' type="email" name="email" onChange={handleChange} value={funcionario.email} placeholder="Email" />
                         <button type="submit" className="btn-cadastrar">Cadastrar</button>
                     </form>
                 </section>

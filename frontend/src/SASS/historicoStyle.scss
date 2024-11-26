@@ -1,0 +1,69 @@
+// Variáveis para facilitar a manutenção
+$background-color: #f0f0f0;
+$text-color: #333;
+$text: white;
+$title-text-color: #8AF0B3;
+$hover-color: #8AF0B3;
+$footer-bg-color: #222;
+$footer-text-color: #fff;
+
+// Reset básico
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: $background-color;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+// Header
+.header {
+    position: relative;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    border-bottom: 1px solid #ddd;
+
+    .header-logo {
+        display: flex;
+        align-items: center;
+        padding-left: 10px;
+
+
+        .logo {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        h1 {
+            font-size: 18px;
+            color: $text-color;
+        }
+    }
+
+    .header-nav {
+        display: flex;
+        gap: 20px;
+        padding-right: 20px;
+
+        .nav-link {
+            text-decoration: none;
+            font-size: 16px;
+            color: $text-color;
+            transition: transform .2s ease;
+
+            &:hover {
+                color: $hover-color;
+                transform: scale(1.1);
+            }
+        }
+    }
+}
