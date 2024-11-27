@@ -126,9 +126,9 @@ function Funcionario() {
                         {funcionariosFiltrados.map((func, index) => (
                             <div key={index} className="funcionario-card">
                                 <h3>{func.nome}</h3>
-                                <p>Cargo: {func.cargo}</p>
-                                <p>Setor: {func.setor}</p>
-                                <p>Email: {func.email}</p>
+                                <p><strong>Cargo: </strong>{func.cargo}</p>
+                                <p><strong>Setor: </strong>{func.setor}</p>
+                                <p><strong>Email: </strong>{func.email}</p>
                                 <button className="btn-editar"
                                     onClick={() => navigate(`/funcionarios/editar/${func.id}`)}>
                                     Editar
