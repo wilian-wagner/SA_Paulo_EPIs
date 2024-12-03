@@ -1,4 +1,4 @@
-import { listarEPIs, criarEPI, editarEPI, deletarEPI } from '../models/Epi.js';
+import { listarEPIs, criarEPI, editarEPI, deletarEPI, retirarEPI, devolverEPI } from '../models/Epi.js';
 
 const getEPIs = async (req, res) => {
   try {
@@ -6,6 +6,26 @@ const getEPIs = async (req, res) => {
     res.json(epis);
   } catch (error) {
     res.status(500).json({ error: 'Erro ao listar EPIs' });
+  }
+};
+
+const emprestarEPI = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const epi = await retirarEPI(id);
+    res.json(epi);
+  } catch (error) {
+    res.status(500).json({ error: error+' Erro ao emprestar EPIs' });
+  }
+};
+
+const receberEPI = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const epi = await devolverEPI(id);
+    res.json(epi);
+  } catch (error) {
+    res.status(500).json({ error: error + ' Erro ao devolver EPIs' });
   }
 };
 
@@ -54,4 +74,4 @@ const deleteEPI = async (req, res) => {
   }
 };
 
-export { getEPIs, postEPI, putEPI, deleteEPI}
+export { getEPIs, postEPI, putEPI, deleteEPI, emprestarEPI,receberEPI}

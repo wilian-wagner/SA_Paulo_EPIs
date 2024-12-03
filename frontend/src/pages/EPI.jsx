@@ -67,15 +67,9 @@ function Epi() {
     };
 
     // Função para registrar a movimentação
-    const registrarMovimentacao = async (tipo_movimentacao, epi_id) => {
+    const registrarMovimentacao = async (epi_id) => {
         try {
-            const movimentacao = {
-                funcionario_id: 1, // Substitua pelo ID real do funcionário se necessário
-                epi_id,
-                tipo_movimentacao,
-                data: new Date().toISOString() // Data atual no formato ISO
-            };
-            await axios.post('http://localhost:3000/movimentacoes', movimentacao);
+            await axios.post(`http://localhost:3000/retirar/epis/${epi_id}`)
             console.log("Movimentação registrada com sucesso:", movimentacao);
         } catch (error) {
             console.error("Erro ao registrar movimentação:", error);
@@ -85,8 +79,13 @@ function Epi() {
     // Função para retirar o EPI
     const retirarEPI = async (epi_id, quantidadeAtual) => {
         if (quantidadeAtual > 0) {
-            await registrarMovimentacao('retirada', epi_id);
-            carregarEPIs();
+            try {
+                await axios.post(`http://localhost:3000/epis/retirar/${epi_id}`)
+                console.log("Movimentação registrada com sucesso:");
+                alert('Retirado com sucesso')
+            } catch (error) {
+                console.error("Erro ao registrar movimentação:", error);
+            }            carregarEPIs();
         } else {
             alert("Estoque insuficiente para retirada.");
         }
@@ -94,7 +93,13 @@ function Epi() {
 
     // Função para devolver o EPI
     const devolverEPI = async (epi_id) => {
-        await registrarMovimentacao('devolução', epi_id);
+        try {
+            await axios.post(`http://localhost:3000/epis/devolver/${epi_id}`)
+            console.log("Movimentação registrada com sucesso:");
+            alert("Devolvido com sucesso")
+        } catch (error) {
+            console.error("Erro ao registrar movimentação:", error);
+        }        
         carregarEPIs();
     };
 
