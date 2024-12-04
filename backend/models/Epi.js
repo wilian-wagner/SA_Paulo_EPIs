@@ -57,13 +57,12 @@ const deletarEPI = async (id) => {
   )
   return resultado.rows[0];
 }
-const retirarEPI = async (id) => {
+const retirarEPI = async (id, nomeFuncionario) => {
   // 1. Consulta na tabela 'epis' para obter os dados do EPI
   const epi = await conexao.query(
     'SELECT * FROM epis WHERE id = $1',
     [id]
   );
-
   // Verifica se foi encontrado o EPI
   if (epi.rows.length === 0) {
     console.log('Nenhum EPI encontrado com o ID fornecido.');
@@ -95,15 +94,15 @@ const retirarEPI = async (id) => {
   const data = new Date().toISOString().split('T')[0]; // Obtém a data atual no formato YYYY-MM-DD
 
   const resultado = await conexao.query(
-    'INSERT INTO historico (nome, tipo, "data") VALUES ($1, $2, $3) RETURNING *',
-    [epiData.nome, tipo, data] // Passa os dados para a inserção no histórico
+    'INSERT INTO historico (nome, tipo, "data",funcionario) VALUES ($1, $2, $3,$4) RETURNING *',
+    [epiData.nome, tipo, data,nomeFuncionario] // Passa os dados para a inserção no histórico
   );
 
   console.log('Histórico inserido:', resultado.rows[0]);
   return resultado.rows[0]; // Retorna o item inserido na tabela 'historico'
 }
 
-const devolverEPI = async (id) => {
+const devolverEPI = async (id,nomeFuncionario) => {
   // Consulta na tabela 'epis' para obter os dados do EPI
   const epi = await conexao.query(
     'SELECT * FROM epis WHERE id = $1',
@@ -124,8 +123,8 @@ const devolverEPI = async (id) => {
 
   // Registra no histórico a devolução do EPI
   const resultado = await conexao.query(
-    'INSERT INTO historico (nome, tipo, "data") VALUES ($1, $2, $3) RETURNING *',
-    [epiData.nome, tipo, data] // Passa os dados para a inserção no histórico, incluindo o epi_id
+    'INSERT INTO historico (nome, tipo, "data",funcionario) VALUES ($1, $2, $3, $4) RETURNING *',
+    [epiData.nome, tipo, data,nomeFuncionario] // Passa os dados para a inserção no histórico, incluindo o epi_id
   );
 
   console.log('Histórico de devolução inserido:', resultado.rows[0]);
@@ -133,5 +132,10 @@ const devolverEPI = async (id) => {
 }
 
 
+const listarHistorico = async () => {
+  const res = await conexao.query('SELECT * FROM historico');
+  return res.rows;
+};
 
-export {listarEPIs, criarEPI, editarEPI, deletarEPI, retirarEPI, devolverEPI}
+
+export {listarEPIs, criarEPI, editarEPI, deletarEPI, retirarEPI, devolverEPI,listarHistorico}

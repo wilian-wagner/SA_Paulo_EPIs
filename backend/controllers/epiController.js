@@ -1,4 +1,4 @@
-import { listarEPIs, criarEPI, editarEPI, deletarEPI, retirarEPI, devolverEPI } from '../models/Epi.js';
+import { listarEPIs, criarEPI, editarEPI, deletarEPI, retirarEPI, devolverEPI, listarHistorico } from '../models/Epi.js';
 
 const getEPIs = async (req, res) => {
   try {
@@ -8,21 +8,37 @@ const getEPIs = async (req, res) => {
     res.status(500).json({ error: 'Erro ao listar EPIs' });
   }
 };
+const getHistorico = async (req, res) => {
+  try {
+    const epis = await listarHistorico();
+    res.json(epis);
+  } catch (error) {
+    res.status(500).json({ error: 'Erro ao listar Historico' });
+  }
+};
+
 
 const emprestarEPI = async (req, res) => {
   try {
     const { id } = req.params;
-    const epi = await retirarEPI(id);
+    const { nomeFuncionario } = req.query; // Captura o parâmetro enviado na URL como query string
+
+    if (!nomeFuncionario) {
+      return res.status(400).json({ error: "O nome do funcionário é obrigatório." });
+    }
+
+    const epi = await retirarEPI(id, nomeFuncionario); // Passa o nome do funcionário para a lógica de retirada
     res.json(epi);
   } catch (error) {
-    res.status(500).json({ error: error+' Erro ao emprestar EPIs' });
+    res.status(500).json({ error: error + " Erro ao emprestar EPIs" });
   }
 };
 
 const receberEPI = async (req, res) => {
   try {
     const { id } = req.params;
-    const epi = await devolverEPI(id);
+    const { nomeFuncionario } = req.query; // Captura o parâmetro enviado na URL como query string
+    const epi = await devolverEPI(id, nomeFuncionario);
     res.json(epi);
   } catch (error) {
     res.status(500).json({ error: error + ' Erro ao devolver EPIs' });
@@ -74,4 +90,4 @@ const deleteEPI = async (req, res) => {
   }
 };
 
-export { getEPIs, postEPI, putEPI, deleteEPI, emprestarEPI,receberEPI}
+export { getEPIs, postEPI, putEPI, deleteEPI, emprestarEPI, receberEPI, getHistorico }

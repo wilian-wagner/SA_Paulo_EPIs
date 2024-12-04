@@ -1,11 +1,7 @@
 // Variáveis para facilitar a manutenção
 $background-color: #f0f0f0;
 $text-color: #333;
-$text: white;
-$title-text-color: #8AF0B3;
 $hover-color: #8AF0B3;
-$footer-bg-color: #222;
-$footer-text-color: #fff;
 
 // Reset básico
 body {
@@ -18,6 +14,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    padding: 20px;
 }
 
 // Header
@@ -35,7 +32,6 @@ body {
         display: flex;
         align-items: center;
         padding-left: 10px;
-
 
         .logo {
             width: 30px;
@@ -58,7 +54,7 @@ body {
             text-decoration: none;
             font-size: 16px;
             color: $text-color;
-            transition: transform .2s ease;
+            transition: transform 0.2s ease;
 
             &:hover {
                 color: $hover-color;
@@ -66,4 +62,65 @@ body {
             }
         }
     }
+}
+// Lista de movimentações
+.movimentacoes-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); // Ajusta largura mínima dos cartões
+    gap: 20px; // Espaçamento entre os cartões
+    margin: 0 auto;
+    padding: 20px;
+    max-width: 1200px; // Limita a largura máxima da lista
+    justify-content: center; // Centraliza os cartões na tela
+}
+
+// Cartões de movimentação
+.movimentacao-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // Sombra mais suave
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 1px solid #ddd;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+        transform: translateY(-5px); // Eleva o cartão ao passar o mouse
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); // Sombra mais forte ao hover
+    }
+
+    h3 {
+        font-size: 18px;
+        color: $text-color;
+        margin: 0;
+    }
+
+    p {
+        font-size: 14px;
+        color: $text-color;
+        margin: 0;
+
+        &.funcionario {
+            font-style: italic;
+            color: #555; // Cor mais suave para o nome do funcionário
+        }
+
+        &.data {
+            text-align: right;
+            color: #777;
+            font-size: 12px;
+        }
+    }
+}
+
+// Estilo para o título da página
+h1 {
+    font-size: 24px;
+    color: $text-color;
+    text-align: center;
+    margin-bottom: 20px;
+    text-transform: uppercase; // Estilo de letras maiúsculas
+    letter-spacing: 1px; // Espaçamento entre letras
 }
