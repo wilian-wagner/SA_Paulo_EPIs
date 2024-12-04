@@ -133,7 +133,7 @@ function Epi() {
         <div className='epi-page container'>
             <header className="header">
                 <div className="header-logo">
-                    <img src="./src/assets/logo.png" alt="Logo" className="logo" />
+                    <img src="./public/logo.png" alt="Logo" className="logo" />
                     <h1>Master EPIs Manager</h1>
                 </div>
                 <nav className="header-nav">
