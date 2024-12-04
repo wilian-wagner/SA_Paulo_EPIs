@@ -10,7 +10,10 @@ function Epi() {
         status: ''
     });
     const [listaEPIs, setListaEPIs] = useState([]);
-    const [erro, setErro] = useState('');
+    const [listaFuncionarios, setListaFuncionarios] = useState([]);
+    const [modalVisible, setModalVisible] = useState(false);
+    const [modalInput, setModalInput] = useState('');
+    const [modalCallback, setModalCallback] = useState(null);
 
     const [filtroNome, setFiltroNome] = useState('');
     const [filtroStatus, setFiltroStatus] = useState('');
@@ -19,10 +22,20 @@ function Epi() {
 
     useEffect(() => {
         carregarEPIs();
+        carregarFuncionarios();
     }, []);
 
     const handleChange = (e) => {
         setEpi({ ...epi, [e.target.name]: e.target.value });
+    };
+
+    const carregarFuncionarios = async () => {
+        try {
+            const response = await axios.get('http://localhost:3000/funcionarios');
+            setListaFuncionarios(response.data);
+        } catch (error) {
+            console.error("Erro ao carregar funcionários:", error);
+        }
     };
 
     const carregarEPIs = async () => {
@@ -41,14 +54,11 @@ function Epi() {
         );
 
         if (nomeExistente) {
-            setErro('Nome do EPI já cadastrado.');
             return alert('EPI já cadastrado!');
         }
-        setErro('');
 
         try {
             const response = await axios.post('http://localhost:3000/epis', epi);
-            console.log(response.data);
             setEpi({ nome: '', quantidade: 0, status: '' });
             carregarEPIs();
         } catch (error) {
@@ -60,42 +70,58 @@ function Epi() {
         try {
             await axios.delete(`http://localhost:3000/epis/${id}`);
             setListaEPIs(listaEPIs.filter(epi => epi.id !== id));
-            console.log("EPI deletado com sucesso");
         } catch (error) {
             console.error("Erro ao deletar EPI:", error);
         }
     };
 
-    // Função para registrar a movimentação
-    const registrarMovimentacao = async (tipo_movimentacao, epi_id) => {
-        try {
-            const movimentacao = {
-                funcionario_id: 1, // Substitua pelo ID real do funcionário se necessário
-                epi_id,
-                tipo_movimentacao,
-                data: new Date().toISOString() // Data atual no formato ISO
-            };
-            await axios.post('http://localhost:3000/movimentacoes', movimentacao);
-            console.log("Movimentação registrada com sucesso:", movimentacao);
-        } catch (error) {
-            console.error("Erro ao registrar movimentação:", error);
-        }
+    const openModal = (callback) => {
+        setModalCallback(() => callback);
+        setModalVisible(true);
     };
 
-    // Função para retirar o EPI
+    const handleModalConfirm = () => {
+        if (modalCallback) {
+            modalCallback(modalInput);
+        }
+        setModalVisible(false);
+        setModalInput('');
+    };
+
     const retirarEPI = async (epi_id, quantidadeAtual) => {
         if (quantidadeAtual > 0) {
-            await registrarMovimentacao('retirada', epi_id);
-            carregarEPIs();
+            openModal(async (nomeFuncionario) => {
+                if (!nomeFuncionario) {
+                    alert('Selecione um funcionário.');
+                    return;
+                }
+                try {
+                    await axios.post(
+                        `http://localhost:3000/epis/retirar/${epi_id}?nomeFuncionario=${encodeURIComponent(nomeFuncionario)}`
+                    );
+                    alert('Retirado com sucesso');
+                    carregarEPIs();
+                } catch (error) {
+                    console.error("Erro ao registrar movimentação:", error);
+                }
+            });
         } else {
             alert("Estoque insuficiente para retirada.");
         }
     };
 
-    // Função para devolver o EPI
     const devolverEPI = async (epi_id) => {
-        await registrarMovimentacao('devolução', epi_id);
-        carregarEPIs();
+        openModal(async (nomeFuncionario) => {
+            try {
+                await axios.post(
+                    `http://localhost:3000/epis/devolver/${epi_id}?nomeFuncionario=${encodeURIComponent(nomeFuncionario)}`
+                );
+                alert("Devolvido com sucesso");
+                carregarEPIs();
+            } catch (error) {
+                console.error("Erro ao registrar movimentação:", error);
+            }
+        });
     };
 
     const episFiltrados = listaEPIs.filter(epi =>
@@ -157,38 +183,45 @@ function Epi() {
                         />
                     </div>
                     <div className="epis-cards">
-                        {episFiltrados.map((epi, index) => (
-                            <div key={index} className="epi-card">
+                        {episFiltrados.map((epi) => (
+                            <div key={epi.id} className="epi-card">
                                 <h3>{epi.nome}</h3>
                                 <p>Estoque: {epi.quantidade}</p>
                                 <p>Status: {epi.status}</p>
-                                <button className="btn-editar"
-                                    onClick={() => navigate(`/Epi/editar/${epi.id}`)}>
-                                    Editar
-                                </button>
-                                <button className="btn-deletar"
-                                    onClick={() => deletarEPI(epi.id)}>
-                                    Deletar
-                                </button>
+                                <button className="btn-editar" onClick={() => navigate(`/Epi/editar/${epi.id}`)}>Editar</button>
+                                <button className="btn-deletar" onClick={() => deletarEPI(epi.id)}>Deletar</button>
                                 <div>
-                                    <button
-                                        className="btn-retirar"
-                                        onClick={() => retirarEPI(epi.id, epi.quantidade)}
-                                    >
-                                        Retirar
-                                    </button>
-                                    <button
-                                        className="btn-devolver"
-                                        onClick={() => devolverEPI(epi.id)}
-                                    >
-                                        Devolver
-                                    </button>
+                                    <button className="btn-retirar" onClick={() => retirarEPI(epi.id, epi.quantidade)}>Retirar</button>
+                                    <button className="btn-devolver" onClick={() => devolverEPI(epi.id)}>Devolver</button>
                                 </div>
                             </div>
                         ))}
                     </div>
                 </section>
             </main>
+
+            {modalVisible && (
+                <div className="modal-backdrop">
+                    <div className="modal">
+                        <h3>Selecione o funcionário</h3>
+                        <select
+                            value={modalInput}
+                            onChange={(e) => setModalInput(e.target.value)}
+                        >
+                            <option value="">Selecione</option>
+                            {listaFuncionarios.map((funcionario) => (
+                                <option key={funcionario.id} value={funcionario.nome}>
+                                    {funcionario.nome}
+                                </option>
+                            ))}
+                        </select>
+                        <div className="modal-buttons">
+                            <button onClick={handleModalConfirm}>Confirmar</button>
+                            <button onClick={() => setModalVisible(false)}>Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

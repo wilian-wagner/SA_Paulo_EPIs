@@ -1,8 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom'
-import '../SASS/historicoStyle.scss'
+import { Link } from 'react-router-dom';
+import '../SASS/historicoStyle.scss';
 
 const Historico = () => {
     const [movimentacoes, setMovimentacoes] = useState([]);
@@ -10,11 +9,11 @@ const Historico = () => {
     useEffect(() => {
         async function fetchMovimentacoes() {
             try {
-                const response = await axios.get('/api/movimentacoes');
+                const response = await axios.get('http://localhost:3000/epis/historico');
                 setMovimentacoes(response.data);
             } catch (error) {
                 console.error("Erro ao buscar movimentações:", error);
-                setMovimentacoes();
+                setMovimentacoes([]);
             }
         }
 
@@ -22,7 +21,7 @@ const Historico = () => {
     }, []);
 
     return (
-        <div>
+        <div className="container">
             <header className="header">
                 <div className="header-logo">
                     <img src="./src/assets/logo.png" alt="Logo" className="logo" />
@@ -36,21 +35,21 @@ const Historico = () => {
                 </nav>
             </header>
 
-            <h1>Histórico de Movimentações</h1>
+            <h1>Histórico de Uso de EPIs</h1>
 
-            {Array.isArray(movimentacoes) && movimentacoes.length > 0 ? (
-                movimentacoes.map((mov) => (
-                    <div key={mov.id}>
-                        <p><strong>ID:</strong> {mov.id}</p>
-                        <p><strong>Funcionário ID:</strong> {mov.funcionario_id}</p>
-                        <p><strong>EPI ID:</strong> {mov.epi_id}</p>
-                        <p><strong>Tipo de Movimentação:</strong> {mov.tipo_movimentacao}</p>
-                        <p><strong>Data:</strong> {mov.data}</p>
-                    </div>
-                ))
-            ) : (
-                <p>Sem movimentações para exibir.</p>
-            )}
+            <div className="movimentacoes-list">
+                {Array.isArray(movimentacoes) && movimentacoes.length > 0 ? (
+                    movimentacoes.map((mov) => (
+                        <div key={mov.id} className="movimentacao-card">
+                            <h3>{mov.nome}</h3>
+                            <p className="funcionario">Utilizado por: {mov.funcionario}</p>
+                            <p className="data">Data: {new Date(mov.data).toLocaleDateString('pt-BR')}</p>
+                        </div>
+                    ))
+                ) : (
+                    <p>Sem movimentações para exibir.</p>
+                )}
+            </div>
         </div>
     );
 };
