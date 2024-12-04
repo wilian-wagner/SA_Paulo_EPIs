@@ -39,7 +39,7 @@ function EditarFuncionario() {
       Object.entries(funcionario).filter(([, value]) => value !== '')
     );
     try {
-      await axios.put(`http://localhost:3000/funcionarios/${id}`, dadosAtualizados);
+      await axios.put(`https://sa-paulo-epis.onrender.com/funcionarios/${id}`, dadosAtualizados);
       navigate('/funcionarios');
     } catch (error) {
       console.error("Erro ao atualizar funcionário:", error);
@@ -48,7 +48,7 @@ function EditarFuncionario() {
 
   const carregarFuncionario = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/funcionarios');
+      const response = await axios.get('https://sa-paulo-epis.onrender.com/funcionarios');
       setListaFuncionarios(response.data);
     } catch (error) {
       console.error("Erro ao carregar funcionários:", error);

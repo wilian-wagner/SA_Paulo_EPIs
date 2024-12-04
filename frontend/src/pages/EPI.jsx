@@ -31,7 +31,7 @@ function Epi() {
 
     const carregarFuncionarios = async () => {
         try {
-            const response = await axios.get('http://localhost:3000/funcionarios');
+            const response = await axios.get('https://sa-paulo-epis.onrender.com/funcionarios');
             setListaFuncionarios(response.data);
         } catch (error) {
             console.error("Erro ao carregar funcionários:", error);
@@ -40,7 +40,7 @@ function Epi() {
 
     const carregarEPIs = async () => {
         try {
-            const response = await axios.get('http://localhost:3000/epis');
+            const response = await axios.get('https://sa-paulo-epis.onrender.com/epis');
             setListaEPIs(response.data);
         } catch (error) {
             console.error("Erro ao carregar EPIs:", error);
@@ -58,7 +58,7 @@ function Epi() {
         }
 
         try {
-            const response = await axios.post('http://localhost:3000/epis', epi);
+            const response = await axios.post('https://sa-paulo-epis.onrender.com/epis', epi);
             setEpi({ nome: '', quantidade: 0, status: '' });
             carregarEPIs();
         } catch (error) {
@@ -68,7 +68,7 @@ function Epi() {
 
     const deletarEPI = async (id) => {
         try {
-            await axios.delete(`http://localhost:3000/epis/${id}`);
+            await axios.delete(`https://sa-paulo-epis.onrender.com/epis/${id}`);
             setListaEPIs(listaEPIs.filter(epi => epi.id !== id));
         } catch (error) {
             console.error("Erro ao deletar EPI:", error);
@@ -97,7 +97,7 @@ function Epi() {
                 }
                 try {
                     await axios.post(
-                        `http://localhost:3000/epis/retirar/${epi_id}?nomeFuncionario=${encodeURIComponent(nomeFuncionario)}`
+                        `https://sa-paulo-epis.onrender.com/epis/retirar/${epi_id}?nomeFuncionario=${encodeURIComponent(nomeFuncionario)}`
                     );
                     alert('Retirado com sucesso');
                     carregarEPIs();
@@ -114,7 +114,7 @@ function Epi() {
         openModal(async (nomeFuncionario) => {
             try {
                 await axios.post(
-                    `http://localhost:3000/epis/devolver/${epi_id}?nomeFuncionario=${encodeURIComponent(nomeFuncionario)}`
+                    `https://sa-paulo-epis.onrender.com/epis/devolver/${epi_id}?nomeFuncionario=${encodeURIComponent(nomeFuncionario)}`
                 );
                 alert("Devolvido com sucesso");
                 carregarEPIs();

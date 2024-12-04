@@ -9,7 +9,7 @@ const Historico = () => {
     useEffect(() => {
         async function fetchMovimentacoes() {
             try {
-                const response = await axios.get('http://localhost:3000/epis/historico');
+                const response = await axios.get('https://sa-paulo-epis.onrender.com/epis/historico');
                 setMovimentacoes(response.data);
             } catch (error) {
                 console.error("Erro ao buscar movimentações:", error);

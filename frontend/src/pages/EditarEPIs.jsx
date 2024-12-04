@@ -22,7 +22,7 @@ function EditarEPI() {
     );
     
     try {
-      await axios.put(`http://localhost:3000/epis/${id}`, dadosAtualizados);
+      await axios.put(`https://sa-paulo-epis.onrender.com/epis/${id}`, dadosAtualizados);
       navigate('/Epi'); 
     } catch (error) {
       console.error("Erro ao atualizar EPI:", error);

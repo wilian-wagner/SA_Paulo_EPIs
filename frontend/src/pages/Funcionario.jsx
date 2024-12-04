@@ -39,7 +39,7 @@ function Funcionario() {
         }
         setErro('');
         try {
-            const response = await axios.post('http://localhost:3000/funcionarios', funcionario);
+            const response = await axios.post('https://sa-paulo-epis.onrender.com/funcionarios', funcionario);
             console.log(response.data);
             setFuncionario({ nome: '', cargo: '', setor: '', email: '' });
             carregarFuncionario(); 
@@ -50,7 +50,7 @@ function Funcionario() {
 
     const carregarFuncionario = async () => {
         try {
-            const response = await axios.get('http://localhost:3000/funcionarios');
+            const response = await axios.get('https://sa-paulo-epis.onrender.com/funcionarios');
             setListaFuncionarios(response.data);
         } catch (error) {
             console.error("Erro ao carregar funcionários:", error);
@@ -59,7 +59,7 @@ function Funcionario() {
 
     const deletarFuncionario = async (id) => {
         try {
-            await axios.delete(`http://localhost:3000/funcionarios/${id}`);
+            await axios.delete(`https://sa-paulo-epis.onrender.com/funcionarios/${id}`);
             setListaFuncionarios(listaFuncionarios.filter(func => func.id !== id));
             console.log("Funcionário deletado com sucesso");
         } catch (error) {
