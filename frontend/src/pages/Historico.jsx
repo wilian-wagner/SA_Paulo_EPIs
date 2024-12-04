@@ -24,7 +24,7 @@ const Historico = () => {
         <div className="container">
             <header className="header">
                 <div className="header-logo">
-                    <img src="./public/logo.png" alt="Logo" className="logo" />
+                    <img src="./logo.png" alt="Logo" className="logo" />
                     <h1>Master EPIs Manager</h1>
                 </div>
                 <nav className="header-nav">
