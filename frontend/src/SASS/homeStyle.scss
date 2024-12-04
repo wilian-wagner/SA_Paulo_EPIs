@@ -1,4 +1,3 @@
-// Variáveis para facilitar a manutenção
 $background-color: #f0f0f0;
 $text-color: #333;
 $text: white;
@@ -36,7 +35,6 @@ body {
         align-items: center;
         padding-left: 10px;
 
-
         .logo {
             width: 30px;
             height: 30px;
@@ -46,6 +44,7 @@ body {
         h1 {
             font-size: 18px;
             color: $text-color;
+            margin: 0px;
         }
     }
 

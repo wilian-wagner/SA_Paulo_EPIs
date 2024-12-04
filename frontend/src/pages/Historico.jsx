@@ -35,21 +35,23 @@ const Historico = () => {
                 </nav>
             </header>
 
-            <h1>Histórico de Uso de EPIs</h1>
 
-            <div className="movimentacoes-list">
-                {Array.isArray(movimentacoes) && movimentacoes.length > 0 ? (
-                    movimentacoes.map((mov) => (
-                        <div key={mov.id} className="movimentacao-card">
-                            <h3>{mov.nome}</h3>
-                            <p className="funcionario">Utilizado por: {mov.funcionario}</p>
-                            <p className="data">Data: {new Date(mov.data).toLocaleDateString('pt-BR')}</p>
-                        </div>
-                    ))
-                ) : (
-                    <p>Sem movimentações para exibir.</p>
-                )}
-            </div>
+            <section className='container-movimentacoes'>
+                <h2>Histórico de Uso de EPIs</h2>
+                <div className="movimentacoes-list">
+                    {Array.isArray(movimentacoes) && movimentacoes.length > 0 ? (
+                        movimentacoes.map((mov) => (
+                            <div key={mov.id} className="movimentacao-card">
+                                <h3>{mov.nome}</h3>
+                                <p className="funcionario">Utilizado por: {mov.funcionario}</p>
+                                <p className="data">Data: {new Date(mov.data).toLocaleDateString('pt-BR')}</p>
+                            </div>
+                        ))
+                    ) : (
+                        <p>Sem movimentações para exibir.</p>
+                    )}
+                </div>
+            </section>
         </div>
     );
 };

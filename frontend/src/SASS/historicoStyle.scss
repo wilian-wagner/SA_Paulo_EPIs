@@ -1,126 +1,67 @@
-// Variáveis para facilitar a manutenção
 $background-color: #f0f0f0;
 $text-color: #333;
 $hover-color: #8AF0B3;
 
-// Reset básico
-body {
-    margin: 0;
-    font-family: 'Arial', sans-serif;
-    background-color: $background-color;
-}
+.container-movimentacoes {
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-bottom: 20px;
 
-.container {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    padding: 20px;
-}
-
-// Header
-.header {
-    position: relative;
-    width: 100%;
-    height: 60px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: white;
-    border-bottom: 1px solid #ddd;
-
-    .header-logo {
-        display: flex;
-        align-items: center;
-        padding-left: 10px;
-
-        .logo {
-            width: 30px;
-            height: 30px;
-            margin-right: 10px;
-        }
-
-        h1 {
-            font-size: 18px;
-            color: $text-color;
-        }
+    h2 {
+        font-size: 20px;
+        color: $text-color;
+        margin-bottom: 15px;
+        font-weight: bold;
     }
 
-    .header-nav {
+    // Lista de movimentações
+    .movimentacoes-list {
         display: flex;
-        gap: 20px;
-        padding-right: 20px;
+        flex-direction: column;
+        max-width: 98%;
+        margin: 0;
+    }
 
-        .nav-link {
-            text-decoration: none;
-            font-size: 16px;
+    // Cartões de movimentação
+    .movimentacao-card {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 12px;
+        margin-bottom: 5px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        border: 1px solid #ddd;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h3 {
+            font-size: 18px;
             color: $text-color;
-            transition: transform 0.2s ease;
+            margin: 0;
+        }
 
-            &:hover {
-                color: $hover-color;
-                transform: scale(1.1);
+        p {
+            font-size: 14px;
+            color: $text-color;
+            margin: 0;
+
+            &.funcionario {
+                font-style: italic;
+                color: #555; // Cor mais suave para o nome do funcionário
+            }
+
+            &.data {
+                text-align: right;
+                color: #777;
+                font-size: 12px;
             }
         }
     }
-}
-// Lista de movimentações
-.movimentacoes-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); // Ajusta largura mínima dos cartões
-    gap: 20px; // Espaçamento entre os cartões
-    margin: 0 auto;
-    padding: 20px;
-    max-width: 1200px; // Limita a largura máxima da lista
-    justify-content: center; // Centraliza os cartões na tela
-}
 
-// Cartões de movimentação
-.movimentacao-card {
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // Sombra mais suave
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    border: 1px solid #ddd;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-
-    &:hover {
-        transform: translateY(-5px); // Eleva o cartão ao passar o mouse
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); // Sombra mais forte ao hover
-    }
-
-    h3 {
-        font-size: 18px;
-        color: $text-color;
-        margin: 0;
-    }
-
-    p {
-        font-size: 14px;
-        color: $text-color;
-        margin: 0;
-
-        &.funcionario {
-            font-style: italic;
-            color: #555; // Cor mais suave para o nome do funcionário
-        }
-
-        &.data {
-            text-align: right;
-            color: #777;
-            font-size: 12px;
-        }
-    }
-}
-
-// Estilo para o título da página
-h1 {
-    font-size: 24px;
-    color: $text-color;
-    text-align: center;
-    margin-bottom: 20px;
-    text-transform: uppercase; // Estilo de letras maiúsculas
-    letter-spacing: 1px; // Espaçamento entre letras
 }

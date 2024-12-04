@@ -216,8 +216,8 @@ function Epi() {
                             ))}
                         </select>
                         <div className="modal-buttons">
-                            <button onClick={handleModalConfirm}>Confirmar</button>
-                            <button onClick={() => setModalVisible(false)}>Cancelar</button>
+                            <button className='btn-confirmar' onClick={handleModalConfirm}>Confirmar</button>
+                            <button className='btn-cancelar' onClick={() => setModalVisible(false)}>Cancelar</button>
                         </div>
                     </div>
                 </div>

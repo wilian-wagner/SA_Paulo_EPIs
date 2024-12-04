@@ -12,7 +12,7 @@ describe('Função de cadastro, edição e remoção de EPIs', () => {
         cy.contains('h3', 'Capaquete de Proteção')
             .parent() // Acha o card pai mais próximo
             .find('.btn-editar') // Localiza o botão 'Editar'
-        .click();
+            .click();
 
         // Edita o nome e a quantidade
         cy.get('[name="nome"]').clear().type('Capacete de Proteção');
@@ -26,6 +26,32 @@ describe('Função de cadastro, edição e remoção de EPIs', () => {
         cy.contains('h3', 'Capacete de Proteção')
             .parent()
             .find('.btn-deletar')
-        .click();
+            .click();
+
+        //Retirar EPI
+        cy.contains('h3', 'Colete de Proteção')
+            .parent()
+            .find('.btn-retirar')
+            .click();
+
+        cy.get('select').select('Jean Arthur Fazio').parent().find('.btn-confirmar').click();
+
+        //Verificando na tela de histórico se possui a retirada
+        cy.contains('.nav-link', 'Histórico').click()
+        cy.get('.movimentacao-card').contains('h3', 'Colete de Proteção')
+
+        //Devolver EPI
+        cy.contains('.nav-link', 'Equipamento').click()
+        cy.contains('h3', 'Colete de Proteção')
+            .parent()
+            .find('.btn-devolver')
+            .click();
+
+        cy.get('select').select('Jean Arthur Fazio').parent().find('.btn-confirmar').click();
+
+        cy.on('window:alert', (alertText) => {
+            expect(alertText).to.equal('Devolvido com sucesso');
+        });
+
     });
 });
